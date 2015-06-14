@@ -8,6 +8,10 @@ using System.Web.Routing;
 
 namespace Exam.Web
 {
+    using System.Reflection;
+
+    using Exam.Web.Infrastructure.Mapping;
+
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
@@ -16,6 +20,14 @@ namespace Exam.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var autoMapperConfig = new AutoMapperConfig(
+                new[]
+                {
+                    Assembly.GetExecutingAssembly(),
+                });
+
+            autoMapperConfig.Execute();
         }
     }
 }

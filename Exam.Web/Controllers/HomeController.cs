@@ -1,8 +1,12 @@
 ﻿namespace Exam.Web.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
 
+    using AutoMapper.QueryableExtensions;
+
     using Exam.Data;
+    using Exam.Web.ViewModels;
 
     public class HomeController : BaseController
     {
@@ -13,7 +17,8 @@
 
         public ActionResult Index()
         {
-            this.Data.Users.All();
+            var users = this.Data.Users.All().Project().To<UserViewModel>().ToList();
+
             return this.View();
         }
 
